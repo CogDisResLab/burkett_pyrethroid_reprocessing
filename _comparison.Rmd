@@ -175,6 +175,10 @@ We will plot the individual and averaged Z scores using both the across and with
 # Generates Z scores waterfall plots
 krsa_zscores_plot(AvgZTable2)
 
+pdf("combined_krsa_zscores.pdf", width = 8.5, height = 11, bg = "white")
+AvgZTable2 |> ungroup() |> filter(abs(AvgZ) >= 1) |> krsa_zscores_plot()
+dev.off()
+
 ```
 
 #### Reverse KRSA Plot
