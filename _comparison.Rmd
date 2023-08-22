@@ -192,7 +192,7 @@ We will use the reverse KRSA plot function, to plot the log2 fold change values 
 #| fig-cap: "Kinase Activity summary for each kinase family based on peptide phosphorylation"
 
 # plot the reverse KRSA figure for top kinases to determine their activity levels
-krsa_reverse_krsa_plot(chipCov, differential_phosphorylated_peptides, kinases_hits, 0.2, byChip = FALSE)
+krsa_reverse_krsa_plot(chipCov, differential_phosphorylated_peptides, c(kinases_hits, c("DMPK", "PKA", "PKG", "PKCD")), 0.2, byChip = FALSE)
 ```
 
 #### Coverage Plot

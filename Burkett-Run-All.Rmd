@@ -31,7 +31,7 @@ params:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  cache = FALSE,
+  cache = TRUE,
   echo = FALSE,
   message = FALSE,
   warning = FALSE
@@ -169,7 +169,7 @@ linear_peptides <- krsa_filter_nonLinear(data_modeled$scaled, 0.8)
 # Filter out reference peptides
 clean_peptides <- krsa_filter_ref_pep(linear_peptides)
 
-
+saveRDS(data_modeled, str_glue("datastore/{run_prefix}-data_modeled-{params$chip_type}.RDS"))
 ```
 
 ## Global Signal Intensity
