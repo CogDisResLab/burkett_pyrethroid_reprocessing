@@ -3,32 +3,24 @@
 library(tidyverse)
 library(ggprism)
 
-pep_data <- list.files("datastore", "data", full.names = TRUE) |>
-  set_names(~ str_extract(.x, "run\\d+")) |>
-  map(readRDS) |>
-  map(~ pluck(.x, "normalized")) |>
-  map(~ filter(.x, r.seq >= 0.8, str_detect(Peptide, "REF", negate = TRUE))) |>
-  list_rbind(names_to = "run") |>
+pep_data <- readRDS("datastore/run-all-data_modeled-STK.RDS") |>
+  pluck("grouped") |>
+  filter(r.seq >= 0.8, str_detect(Peptide, "REF", negate = TRUE), str_detect(Peptide, "^p", negate = TRUE)) |>
   mutate(Group = if_else(Group == "A", "Exposed", "Control"))
 
 mapping <- KRSA::KRSA_Mapping_STK_PamChip_87102_v1
 
-kinases_of_interest <- read_csv("results/combined_quartile_ranked_KRSA.csv") |>
-  select(run, Kinase, quartile) |>
-  pivot_wider(names_from = run, values_from = quartile) |>
-  mutate(mean_rank = (run01 + run02 + run03) / 3) |>
-  slice_min(mean_rank, n = 10) |>
-  pull(Kinase)
+kinases_of_interest <- mapping |> pull(Kinases) |> str_split(" ", simplify = TRUE) |> reduce(c) |> unique() |> keep(~ str_detect(.x, "\\w+")) |> setdiff(c("WNK", "HAL", "STKR", "MSN", "BRSK", "STE11", "NDR"))
 
 combined_data <- mapping |>
   separate_longer_delim(Kinases, delim = " ") |>
   filter(Kinases %in% kinases_of_interest) |>
   rename(Peptide = Substrates, Kinase = Kinases) |>
   inner_join(pep_data) |>
-  select(SampleName, Group, Kinase, Peptide, Run = run, Slope = slope)
+  select(Group, Kinase, Peptide, Slope = slope)
 
 tested <- combined_data |>
-  nest(.by = c(Run, Kinase)) |>
+  nest(.by = c(Kinase)) |>
   mutate(ttest = map(data, ~ t.test(formula = Slope ~ Group, data = .x)),
          glanced = map(ttest, broom::glance),
          mean_val = map(data, ~ summarise(.x, mean_value = mean(Slope), .by = Group)),
@@ -39,19 +31,21 @@ tested <- combined_data |>
   select(-method, -alternative, -parameter, -estimate1, -estimate2) |>
   mutate(Significant = p.value < 0.05) |>
   pivot_longer(cols = starts_with("MeanVal"), names_to = "Group", values_to = "Mean") |>
-  mutate(Group = str_remove(Group, "MeanVal")) |>
+  mutate(Group = str_remove(Group, "MeanVal"),
+         ErrorMin = Mean - abs(conf.low),
+         ErrorMax = Mean + abs(conf.high)) |>
   write_csv("results/t-test_all_kinases.csv")
 
 tested_filtered <- tested |>
-  filter(Kinase %in% c("PKCH", "AKT", "PAKB", "PIM"), Run == "run01") |>
+  filter(Kinase %in% c("PKCH", "PAKB", "PKN", "ERK")) |>
   write_csv("results/t-test_selected_kinases.csv")
 
-g <- ggplot(tested_filtered, aes(x = Kinase, y = Mean, fill = Group, ymin = Mean - conf.low, ymax = Mean + conf.high))
+g <- ggplot(tested_filtered, aes(x = Kinase, y = Mean, fill = Group, ymin = ErrorMin, ymax = ErrorMax))
 
 p <- g +
   geom_bar(stat = "identity", position = position_dodge(0.8), width = 0.7) +
   geom_errorbar(position = position_dodge(0.8), width = 0.7) +
-  scale_fill_prism("shades_of_gray") +
+  scale_fill_prism("viridis") +
   theme_prism()
 
-ggsave("figures/barplot-comparison.svg", plot = p)
+ggsave("figures/barplot-comparison.svg", plot = p, )

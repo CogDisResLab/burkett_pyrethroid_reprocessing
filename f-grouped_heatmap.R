@@ -3,14 +3,9 @@
 library(KRSA)
 library(tidyverse)
 
-pep_data <- list.files("datastore", "data", full.names = TRUE) |>
-  set_names(~ str_extract(.x, "run\\d+")) |>
-  map(readRDS) |>
-  map(~ pluck(.x, "grouped")) |>
-  map(~ filter(.x, r.seq >= 0.8, str_detect(Peptide, "REF", negate = TRUE), str_detect(Peptide, "^p", negate = TRUE))) |>
-  list_rbind(names_to = "run") |>
-  select(-r.seq) |>
-  summarise(slope = mean(slope), .by = c(Peptide, Group))
+pep_data <- readRDS("datastore/run-all-data_modeled-STK.RDS") |>
+  pluck("grouped") |>
+  filter(r.seq >= 0.8, str_detect(Peptide, "REF", negate = TRUE), str_detect(Peptide, "^p", negate = TRUE))
 
 peps <- pep_data |>
   pull(Peptide) |>
@@ -18,6 +13,7 @@ peps <- pep_data |>
 
 krsa_heatmap_grouped(pep_data, peps, scale = "row")
 
-svg(filename = "figures/combined_heatmap.svg")
+dev.off()
+pdf(file = "figures/combined_heatmap.pdf")
 krsa_heatmap_grouped(pep_data, peps, scale = "row")
 dev.off()
