@@ -16,12 +16,12 @@ editor: source
 toc: true
 params:
   chip_type: "STK" # Change the Chip Type to PTK if needed
-  signal_file_r1: "kinome_data/Run1_KRSAsOutput_Median_SigmBg_230714112932.txt" # Change the file name to the one you have
-  saturation_file_r1: "kinome_data/Run1_KRSAsOutput_Signal_Saturation_230714112932.txt" # Change the file name to the one you have
-  signal_file_r2: "kinome_data/Run2_KRSAsoutput_Median_SigmBg_230714113751.txt" # Change the file name to the one you have
-  saturation_file_r2: "kinome_data/Run2_KRSAsoutput_Signal_Saturation_230714113752.txt" # Change the file name to the one you have
-  signal_file_r3: "kinome_data/Run3_KRSAsOutput_Median_SigmBg_230714115014.txt" # Change the file name to the one you have
-  saturation_file_r3: "kinome_data/Run3_KRSAsOutput_Signal_Saturation_230714115014.txt" # Change the file name to the one you have
+  signal_file_r1: "kinome_data/STK/Run1_KRSAsOutput_Median_SigmBg_230714112932.txt" # Change the file name to the one you have
+  saturation_file_r1: "kinome_data/STK/Run1_KRSAsOutput_Signal_Saturation_230714112932.txt" # Change the file name to the one you have
+  signal_file_r2: "kinome_data/STK/Run2_KRSAsoutput_Median_SigmBg_230714113751.txt" # Change the file name to the one you have
+  saturation_file_r2: "kinome_data/STK/Run2_KRSAsoutput_Signal_Saturation_230714113752.txt" # Change the file name to the one you have
+  signal_file_r3: "kinome_data/STK/Run3_KRSAsOutput_Median_SigmBg_230714115014.txt" # Change the file name to the one you have
+  saturation_file_r3: "kinome_data/STK/Run3_KRSAsOutput_Signal_Saturation_230714115014.txt" # Change the file name to the one you have
   threshold: 2 # Change the threshold if necessary
 ---
 

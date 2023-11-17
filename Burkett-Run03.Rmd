@@ -16,8 +16,8 @@ editor: source
 toc: true
 params:
   chip_type: "STK" # Change the Chip Type to PTK if needed
-  signal_file: "kinome_data/Run3_KRSAsOutput_Median_SigmBg_230714115014.txt" # Change the file name to the one you have
-  saturation_file: "kinome_data/Run3_KRSAsOutput_Signal_Saturation_230714115014.txt" # Change the file name to the one you have
+  signal_file: "kinome_data/STK/Run3_KRSAsOutput_Median_SigmBg_230714115014.txt" # Change the file name to the one you have
+  saturation_file: "kinome_data/STK/Run3_KRSAsOutput_Signal_Saturation_230714115014.txt" # Change the file name to the one you have
   threshold: 2 # Change the threshold if necessary
 ---
 
