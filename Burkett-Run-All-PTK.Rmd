@@ -1,5 +1,5 @@
 ---
-title: "Mouse Empathy Dataset - Combined"
+title: "Mouse Empathy Dataset - Combined - PTK"
 subtitle: "Burkett/Jen"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: "Cognitive Disorders Research Lab"
@@ -15,13 +15,13 @@ format:
 editor: source
 toc: true
 params:
-  chip_type: "STK" # Change the Chip Type to PTK if needed
-  signal_file_r1: "kinome_data/STK/Run1_KRSAsOutput_Median_SigmBg_230714112932.txt" # Change the file name to the one you have
-  saturation_file_r1: "kinome_data/STK/Run1_KRSAsOutput_Signal_Saturation_230714112932.txt" # Change the file name to the one you have
-  signal_file_r2: "kinome_data/STK/Run2_KRSAsoutput_Median_SigmBg_230714113751.txt" # Change the file name to the one you have
-  saturation_file_r2: "kinome_data/STK/Run2_KRSAsoutput_Signal_Saturation_230714113752.txt" # Change the file name to the one you have
-  signal_file_r3: "kinome_data/STK/Run3_KRSAsOutput_Median_SigmBg_230714115014.txt" # Change the file name to the one you have
-  saturation_file_r3: "kinome_data/STK/Run3_KRSAsOutput_Signal_Saturation_230714115014.txt" # Change the file name to the one you have
+  chip_type: "PTK" # Change the Chip Type to PTK if needed
+  signal_file_r1: "kinome_data/PTK/EXP01_KRSAsOutput_Median_SigmBg_231117142535-PTK.txt" # Change the file name to the one you have
+  saturation_file_r1: "kinome_data/PTK/EXP01_KRSAsOutput_Signal_Saturation_231117142536-PTK.txt" # Change the file name to the one you have
+  signal_file_r2: "kinome_data/PTK/EXP02_KRSAsOutput_Median_SigmBg_231117143358-PTK.txt" # Change the file name to the one you have
+  saturation_file_r2: "kinome_data/PTK/EXP02_KRSAsOutput_Signal_Saturation_231117143400-PTK.txt" # Change the file name to the one you have
+  signal_file_r3: "kinome_data/PTK/EXP03_KRSAsOutput_Median_SigmBg_231117144020-PTK.txt" # Change the file name to the one you have
+  saturation_file_r3: "kinome_data/PTK/EXP03_KRSAsOutput_Signal_Saturation_231117144021-PTK.txt" # Change the file name to the one you have
   threshold: 2 # Change the threshold if necessary
 ---
 
@@ -44,7 +44,7 @@ library(tidyverse)
 library(gt)
 library(furrr)
 
-run_prefix <- "run-all"
+run_prefix <- "run-all-PTK"
 ```
 
 # Introduction
