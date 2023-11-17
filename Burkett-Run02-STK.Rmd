@@ -1,5 +1,5 @@
 ---
-title: "Mouse Empathy Dataset 1"
+title: "Mouse Empathy Dataset 2"
 subtitle: "Burkett/Jen"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: "Cognitive Disorders Research Lab"
@@ -16,8 +16,8 @@ editor: source
 toc: true
 params:
   chip_type: "STK" # Change the Chip Type to PTK if needed
-  signal_file: "kinome_data/STK/Run1_KRSAsOutput_Median_SigmBg_230714112932.txt" # Change the file name to the one you have
-  saturation_file: "kinome_data/STK/Run1_KRSAsOutput_Signal_Saturation_230714112932.txt" # Change the file name to the one you have
+  signal_file: "kinome_data/STK/Run2_KRSAsoutput_Median_SigmBg_230714113751.txt" # Change the file name to the one you have
+  saturation_file: "kinome_data/STK/Run2_KRSAsoutput_Signal_Saturation_230714113752.txt" # Change the file name to the one you have
   threshold: 2 # Change the threshold if necessary
 ---
 
@@ -40,7 +40,7 @@ library(tidyverse)
 library(gt)
 library(furrr)
 
-run_prefix <- "run01"
+run_prefix <- "run02-STK"
 ```
 
 # Introduction
