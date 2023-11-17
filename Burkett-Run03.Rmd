@@ -254,7 +254,7 @@ These *Filtering Parameters* (fold change threshold, QC criteria) can be modifie
 # Also make sure that the label is unique for each block
 
 # Define Groups to be compared
-comparisons <- list(COMP1 = c(groups[2], groups[1]))
+comparisons <- list(COMP1 = c(groups[1], groups[2]))
 ```
 
 ```{r}
